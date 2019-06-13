@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<settings>
+		<setting name="logImpl" value="LOG4J"/>
+	</settings>
+	
+	<typeAliases>
+		<package name="com.hncu.util"/>
+	</typeAliases>
+	<environments default="default">
+		<environment id="default">
+			<transactionManager type="JDBC"></transactionManager>
+			<dataSource type="POOLED">
+				<property name="driver" value="com.mysql.jdbc.Driver"/>
+				<property name="url" value="jdbc:mysql://localhost:3306/pkyarticle_db"/>
+				<property name="username" value="root"/>
+				<property name="password" value="root"/>
+			</dataSource>
+		</environment>
+	</environments>
+	<mappers>
+		<mapper resource="com/hncu/mapper/userMapper.xml"/><!-- 加载需要执行的sql语句文件 -->
+		<mapper resource="com/hncu/mapper/pageMapper.xml"/>
+		<mapper resource="com/hncu/mapper/newsMapper.xml"/>
+		<mapper resource="com/hncu/mapper/linkMapper.xml"/>
+		<mapper resource="com/hncu/mapper/adminMapper.xml"/>
+		<mapper resource="com/hncu/mapper/noticleMapper.xml"/>
+		<mapper resource="com/hncu/mapper/fileMapper.xml"/>
+		<mapper resource="com/hncu/mapper/comMapper.xml"/>
+	</mappers>
+</configuration>

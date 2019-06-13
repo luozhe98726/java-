@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="a.b">
+<!-- 		上传文件 -->
+		<insert id="inFile"  parameterType="FileBean">
+				insert into p_file (pf_name,pf_image,u_id,u_username) value (#{pf_name},#{pf_image},#{u_id},#{u_username})
+		</insert>
+<!-- 显示当前用户全部的文件 -->
+		<select id="selAllFile"  resultType="FileBean">
+				select * from p_file
+		</select>
+
+<!-- 根据id获取某个文件的信息 -->
+
+		<select id="selFile" resultType="FileBean" parameterType="int">
+				select * from p_file where pf_id=#{pf_id}
+		</select>
+		
+		
+		
+		<!-- 		上传头像 -->
+		<insert id="inPhoto"  parameterType="PhotoBean">
+				insert into u_photo (up_name,up_image,u_id,u_username) value (#{up_name},#{up_image},#{u_id},#{u_username})
+		</insert>
+
+
+<!-- 根据用户id获取当前头像的信息 -->
+
+		<select id="selPhoto" resultType="PhotoBean" parameterType="int">
+				select * from u_photo where u_id=#{u_id} order by up_id desc limit 1
+		</select>
+		
+</mapper>

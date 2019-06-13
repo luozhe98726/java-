@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="a.b">
+		<!-- 	分页查询用户的信息 pageStart:表示起始页 pageSize：表示一页要显示的行数 -->
+		<select id="selUserPa" resultType="UserBean" parameterType="map">
+			select * from p_userinfo limit #{pageStart},#{pageSize}
+		</select>
+		<!-- 		查询总的行数 -->
+		<select id="selCount" resultType="int">
+			select count(*) from p_userinfo
+		</select>
+		
+<!-- 		分页查询新闻的信息 -->
+			<select id="selNewsPa" resultType="NewsBean" parameterType="map">
+				select * from p_news limit #{pageStart},#{pageSize}
+			</select>
+		<!-- 		查询总的行数 -->
+			<select id="selNCount" resultType="int">
+				select count(*) from p_news
+			</select>
+			
+			
+			<!-- 			分页显示，根据新闻的标题来搜索新闻 -->
+				<select id="selNewsByName"  parameterType="map" resultType="NewsBean">
+				select a.* from (select * from p_news where p_newsTitle like #{p_newsTitle} ) a limit #{pageStart},#{pageSize}
+							
+				</select>
+				
+				<!-- 		查询总的行数 -->
+			<select id="selNsCount" resultType="int" parameterType="map">
+				select count(*) from (select * from p_news where p_newsTitle like #{p_newsTitle} ) a
+			</select>
+				
+</mapper>

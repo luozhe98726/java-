@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="a.b">
+<!--     	添加公告 -->
+			<insert id="inNotic" parameterType="NoticleBeans">
+					insert into p_newsno (n_name,n_content) values(#{n_name},#{n_content}) 
+			</insert>
+<!-- 			查询所有的公告 -->
+			<select id="selNotic" resultType="NoticleBeans">
+					select * from p_newsno
+			</select>
+<!-- 		删除公告 -->
+			<delete id="deNotic" parameterType="int">
+					delete from p_newsno where n_id=#{n_id}
+			</delete>
+			
+<!-- 			修改公告-->
+			<update id="upNotic" parameterType="NoticleBeans">
+					update p_newsno set n_name=#{n_name},n_content=#{n_content}  where n_id=#{n_id}
+			</update>
+<!-- 			根据链接id来查询一条公告 -->
+			<select id="selNoticById" resultType="NoticleBeans" parameterType="int">
+					select * from p_newsno where n_id=#{n_id}
+			</select>
+<!-- 		显示公告 -->
+
+
+  </mapper>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="a.b">
+ 		<!-- 注册用户 -->
+ 		<insert id="inUser" parameterType="UserBean">
+ 			insert into p_userinfo (u_username,u_password,u_email) values(#{u_username},#{u_password},#{u_email})
+ 		</insert>
+ 		<!--根据用户名和密码来查找用户  -->
+ 		<select id="selByup" resultType="UserBean" parameterType="UserBean">
+ 			select * from p_userinfo where u_username=#{u_username} and u_password=#{u_password}
+ 		</select>
+<!--  		查询全部的用户信息 -->
+		<select id="selAll" resultType="UserBean">
+				select * from p_userinfo
+		</select>
+<!-- 		根据用户id来删除用户 -->
+ 		<delete id="deUserById" parameterType="UserBean">
+			 	delete from p_userinfo where u_id=#{u_id}	
+ 		</delete>
+<!--  		查询所有的用户，避免重复注册 -->
+		<select id="selUname" resultType="UserBean">
+			select u_username from p_userinfo
+		</select>
+<!-- 		查询用户的状态 -->
+		<select id="selFre" resultType="int" parameterType="int">
+			select u_freeze from p_userinfo where u_id=#{u_id}
+		</select>
+		
+<!-- 		更新用户状态 -->
+		<update id="upFre" parameterType="UserBean">
+			update p_userinfo set u_freeze=#{u_freeze} where u_id=#{u_id}
+		</update>
+
+			
+<!-- 			根据用户名来修改密码 -->
+		<update id="upPs" parameterType="map">
+			update p_userinfo set u_password=#{u_password} where u_username =#{u_username}
+		</update>
+		
+<!-- 		根据用户id来查询用户的信息 -->
+		<select id="selUserbyId" resultType="UserBean" parameterType="int">
+			select * from p_userinfo where u_id=#{u_id}
+		
+		</select>
+<!-- 			根据用户的id来修改用户的信息 -->
+		<update id="upUserbyId" parameterType="UserBean" >
+				update p_userinfo set u_username=#{u_username},u_email=#{u_email},u_realName=#{u_realName},u_age=#{u_age},u_sex=#{u_sex},u_problem=#{u_problem},u_answer=#{u_answer} where u_id =#{u_id}
+		</update>
+			
+		
+ </mapper>

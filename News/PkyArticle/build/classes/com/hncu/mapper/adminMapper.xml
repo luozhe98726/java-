@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="a.b">
+<!--   		根据用户名和密码来查找用户 -->
+		<select id="selAdByup"  resultType="AdminBeans" parameterType="AdminBeans">
+				select * from p_admin where a_username=#{a_username} and a_password=#{a_password}
+		</select>
+  
+  </mapper>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    <mapper namespace="a.b">
+<!--     	添加友情链接 -->
+			<insert id="inLink" parameterType="LinkBeans">
+					insert into myLinks (l_name,l_address) values(#{l_name},#{l_address}) 
+			</insert>
+<!-- 			查询所有的友情链接 -->
+			<select id="selLink" resultType="LinkBeans">
+					select * from myLinks
+			</select>
+<!-- 		删除友情链接 -->
+			<delete id="deLink" parameterType="int">
+					delete from myLinks where l_id=#{l_id}
+			</delete>
+			
+<!-- 			修改友情链接 -->
+			<update id="upLink" parameterType="LinkBeans">
+					update myLinks set l_name=#{l_name},l_address=#{l_address}  where l_id=#{l_id}
+			</update>
+<!-- 			根据链接id来查询一条链接 -->
+			<select id="selLinkById" resultType="LinkBeans" parameterType="int">
+					select * from myLinks where l_id=#{l_id}
+			</select>
+<!-- 		显示友情链接 -->
+
+
+
+    
+    </mapper>

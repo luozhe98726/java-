@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="a.b">
+		<!--   		将新闻的分类信息插入到数据库 -->
+			<insert id="inCaNews" parameterType="ClassifyNews">
+					insert into p_clnews (f_name) values(#{f_name})
+			</insert>
+		<!-- 			查询所有的新闻栏目名和id号，避免重复添加 -->
+			<select id="selcfNews" resultType="ClassifyNews">
+					select * from p_clnews
+			</select>
+		<!-- 		根据新闻的栏目名来查询，栏目id -->
+			<select id="selClId"  resultType="int" parameterType="String">
+					select f_id from p_clnews where f_name=#{f_name}
+			
+			</select>
+			
+			
+		<!-- 			根据id来删除新闻栏目 -->
+			<delete id="declnews" parameterType="int">
+					delete from p_clnews where f_id=#{f_id}
+			</delete>
+		<!-- 	添加新闻信息 -->
+			<insert id="inNews" parameterType="NewsBean">
+				insert into p_news (p_newsAu,p_newsTitle,p_newsContent,p_newsK,f_id,f_name) values(#{p_newsAu},#{p_newsTitle},#{p_newsContent},#{p_newsK},#{f_id},#{f_name})
+			</insert>
+			
+		<!-- 	查询所有已经发布的新闻信息 -->
+			<select id="selNews" resultType="NewsBean">
+					select * from p_news where p_newsPo=0
+			</select>
+			
+<!-- 			根据新闻id来删除新闻 -->
+			<delete id="deNewsById" parameterType="int">
+				delete from p_news where p_newsId=#{p_newsId}			
+			</delete>
+			
+<!-- 			更新新闻的发表信息(发表新闻) -->
+			<update id="upNewsPo" parameterType="int" >
+					update p_news set p_newsPo=0 where p_newsId=#{p_newsId}
+			</update>
+			
+			<!-- 			更新新闻的发表信息(下架新闻) -->
+			<update id="upNewsPo2" parameterType="int" >
+					update p_news set p_newsPo=1 where p_newsId=#{p_newsId}
+			</update>
+			
+
+<!-- 				根据新闻的id来查询文章是否已经被发布(发表新闻) -->
+			<select id="selNewsPo" parameterType="int" resultType="int">
+					select p_newsPo from p_news where p_newsId=#{p_newsId}
+			</select>
+			
+<!-- 			根据新闻id查询一篇新闻的信息(编辑新闻) (前台新闻详情页面显示)-->
+			<select id="selNewsById" parameterType="int" resultType="NewsBean">
+					select * from p_news where p_newsId=#{p_newsId}
+			</select>
+			
+<!-- 				根据新闻的id来更新新闻的所有信息 (编辑新闻)-->
+			<update id="upNewsById" parameterType="NewsBean">
+					update p_news set p_newsTitle=#{p_newsTitle},p_newsK=#{p_newsK},f_name=#{f_name},p_newsAu=#{p_newsAu},p_newsContent=#{p_newsContent} where p_newsId=#{p_newsId}
+			
+			</update>
+			
+<!-- 			查询最新新闻，从最后一条开始查询 -->
+			<select id="selNewsZuixin" resultType="NewsBean">
+					select * from p_news where p_newsPo=0 order by p_newsId desc ;
+			</select>
+			
+			
+			
+			
+<!-- 			根据新闻的id来查询该条新闻的阅读量 -->
+			<select id="selClick" parameterType="int" resultType="int">
+					select p_click from p_news where p_newsId=#{p_newsId}
+			</select>
+			
+			<!-- 				每点击一条新闻，这条新闻的阅读量就加一			 -->
+			<update id="upClick" parameterType="int" >
+				update p_news set p_click=#{p_click} where p_newsId=#{p_newsId}
+			</update>
+				
+			<!-- 			根据新闻的点击率，对新闻进行排序，显示在前台的热点新闻推荐 -->
+			<select id="selNewsByCl" resultType="NewsBean">
+				select * from p_news where p_newsPo=0 order by p_click desc
+			</select>
+			
+			<!-- 			前台点击收藏，新闻插入用户的后收藏夹 -->
+			<insert id="inCollec" parameterType="CollNews">
+					insert into p_newsColl (p_newsId,u_id,u_username) values (#{p_newsId},#{u_id},#{u_username})
+			</insert>
+			
+			<!-- 			显示用户收藏的新闻列表,,根据用户的id来查询该用户收藏的新闻 -->
+			<select id="selColl" parameterType="int" resultType="NewsBean">
+				select p_newsId, p_newsTitle from p_news where p_newsId in (select p_newsId from p_newsColl where u_id=#{u_id})
+			</select>
+			
+<!-- 			根据新闻栏目名称来查询新闻的信息-->
+			<select id="selNewsByfn" parameterType="String" resultType="NewsBean">
+				select * from p_news where f_name = #{f_name}
+			</select>
+			
+  </mapper>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="a.b">
+<!--  插入评论的信息 -->
+		<insert id="inCom"  parameterType="ComBean">
+			insert into p_newsdis (d_content,u_id,u_username,p_newsId,up_image) value (#{d_content},#{u_id},#{u_username},#{p_newsId},#{up_image})
+		</insert>
+ 
+<!--  对应相应的文章显示相对应的评论信息 -->
+			<select id="selCom" resultType="ComBean" parameterType="int">
+				select * from p_newsdis where p_newsId=#{p_newsId}
+			</select> 
+
+ </mapper>
+  
